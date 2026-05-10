@@ -71,22 +71,27 @@ body.revealed #gate{opacity:0;visibility:hidden;pointer-events:none}
 }
 #gate.opening .envelope-flap{
   transform:rotateX(-185deg);
-  transition:transform 1.25s cubic-bezier(.22,.9,.18,1);
+  transition: transform 2.2s cubic-bezier(.22, 1, .36, 1);
 }
 #gate.opening .envelope-closed{
   opacity:0;
+}
+#gate, .envelope-flap, .envelope-open, .envelope-closed {
+  will-change: transform, opacity;
 }
 #gate.opening .envelope-open{
   opacity:1;
 }
 #gate.opening{
-  transform:scale(1.25);
-  filter:brightness(1.1);
+  transform:scale(1.35);
+  filter:brightness(1.15);
+  transition: transform 2.2s cubic-bezier(.22, 1, .36, 1), filter 2.2s ease;
+
 }
 body.revealed #gate{
   opacity:0;
-  transform:scale(1.4);
-  transition:opacity .7s ease, transform .9s ease;
+  transform:scale(1.7);
+  transition: opacity 2.4s ease, transform 2.6s cubic-bezier(.22, 1, .36, 1);
 }
 .hero{
   opacity:0;
@@ -97,6 +102,53 @@ body.revealed #gate{
 body.revealed .hero{
   opacity:1;
   transform:translateY(0) scale(1);
+}
+@media (max-width: 768px) {
+
+#gate .envelope-closed,
+#gate .envelope-open,
+#gate .envelope-flap{
+  background-size: cover;
+}
+
+/* make envelope scale better on phones */
+#gate.opening{
+  transform: scale(1.08);
+}
+}
+@media (max-width: 768px) {
+
+.hero-names{
+  font-size: 2.8rem;
+}
+
+.hero-date{
+  font-size: 1rem;
+}
+
+.hero-kicker{
+  font-size: 10px;
+}
+
+}
+#gate{
+  touch-action: manipulation;
+}
+body{
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 768px) {
+
+  #gate.opening {
+  transform: scale(1.25);
+  transition: transform 1.8s cubic-bezier(.22, 1, .36, 1), filter 1.8s ease;
+}
+
+#gate .envelope-flap {
+  transition: transform 1.8s cubic-bezier(.22, 1, .36, 1);
+}
+
 }
 
 .hint{
@@ -372,7 +424,7 @@ footer.closure h2{font-family:var(--ff-script);font-size:clamp(2.5rem,8vw,3.5rem
 
     setTimeout(function(){
   document.body.classList.add('revealed');
-},1300);
+},2010);
 
     var hv=document.getElementById('heroVideo');
     if(hv)hv.play().catch(function(){});
